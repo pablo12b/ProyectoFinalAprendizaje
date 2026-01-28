@@ -1,0 +1,1 @@
+"""Business Backend GraphQL API."""
