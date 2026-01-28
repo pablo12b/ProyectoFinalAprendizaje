@@ -60,6 +60,36 @@ PG_URL=postgresql+asyncpg://user:pass@localhost:5432/db_name
 OPENAI_API_KEY=sk-...
 LLM_ENABLED=true   # Set to false to disable LLM
 ```
+    
+## Testing Changes
+    
+To test the recent changes (Computer Endpoint), including the flow of fetching details by ID:
+    
+1. **Start the application** (Ensure Docker is running for the database):
+   ```bash
+   ./start.sh
+   ```
+    
+2. **Simulate Frontend Flow**:
+    
+   **Step A: Create 3 Computers**
+   ```bash
+   curl -X POST -H "Content-Type: application/json" -d '{"brand": "Dell", "price": 1200.00, "description": "Laptop 1"}' http://localhost:9000/api/computers
+   curl -X POST -H "Content-Type: application/json" -d '{"brand": "HP", "price": 800.00, "description": "Laptop 2"}' http://localhost:9000/api/computers
+   curl -X POST -H "Content-Type: application/json" -d '{"brand": "Apple", "price": 2000.00, "description": "Laptop 3"}' http://localhost:9000/api/computers
+   ```
+    
+   **Step B: Get All IDs**
+   ```bash
+   curl -s http://localhost:9000/api/computers
+   # Copy one "id" from the response, e.g., "550e8400-e29b-41d4-a716-446655440000"
+   ```
+    
+   **Step C: Get Details for ONE ID**
+   ```bash
+   # Replace <ID> with the actual UUID
+   curl http://localhost:9000/api/computers/<ID>
+   ```
 
 ## Run
 
@@ -95,6 +125,17 @@ poetry run python -m business_backend.main --port 9000
   ```bash
   curl -X POST -F "file=@image.jpg" http://localhost:9000/api/detect
   ```
+    
+  ### Computers
+  - **GET /api/computers**: List all computers.
+  - **GET /api/computers/{id}**: Get details of a specific computer.
+  - **POST /api/computers**: Create a new computer.
+    - Body (JSON): `{"brand": "Str", "price": Float, "description": "Str"}`
+    
+    Example:
+    ```bash
+    curl -X POST -H "Content-Type: application/json" -d '{"brand": "Dell", "price": 1200.50, "description": "XPS 15"}' http://localhost:9000/api/computers
+    ```
 
 ## GraphQL Queries
 

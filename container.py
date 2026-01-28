@@ -21,6 +21,7 @@ from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
 from business_backend.config import get_business_settings
 from business_backend.database.session import get_session_factory
 from business_backend.llm.provider import LLMProvider, create_llm_provider
+from business_backend.services.computer_service import ComputerService
 from business_backend.services.product_service import ProductService
 from business_backend.services.search_service import SearchService
 from business_backend.services.tenant_data_service import TenantDataService
@@ -65,6 +66,21 @@ async def create_product_service(
         ProductService instance
     """
     return ProductService(session_factory)
+
+
+async def create_computer_service(
+    session_factory: async_sessionmaker[AsyncSession],
+) -> ComputerService:
+    """
+    Factory function for ComputerService.
+
+    Args:
+        session_factory: Database session factory
+
+    Returns:
+        ComputerService instance
+    """
+    return ComputerService(session_factory)
 
 
 async def create_llm_provider_instance() -> LLMProvider | None:
@@ -152,6 +168,7 @@ def providers() -> Iterable[aioinject.Provider[Any]]:
     # Database
     providers_list.append(aioinject.Singleton(create_session_factory))
     providers_list.append(aioinject.Singleton(create_product_service))
+    providers_list.append(aioinject.Singleton(create_computer_service))
 
     # ML Services
     providers_list.append(aioinject.Singleton(create_model_registry))

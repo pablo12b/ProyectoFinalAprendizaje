@@ -1,5 +1,6 @@
 """Business Backend Database Models."""
 
-from business_backend.database.models.product_stock import ProductStock
+from .computer import Computer
+from .product_stock import Base, ProductStock
 
-__all__ = ["ProductStock"]
+__all__ = ["Base", "ProductStock", "Computer"]

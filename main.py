@@ -25,6 +25,7 @@ from strawberry.fastapi import GraphQLRouter
 
 from business_backend.api.graphql.queries import BusinessQuery
 from business_backend.api.rest.endpoints import router as detection_router
+from business_backend.api.rest.computer_endpoints import router as computer_router
 from business_backend.container import create_business_container
 
 
@@ -69,6 +70,7 @@ def create_business_backend_app() -> FastAPI:
     
     # Add REST router
     app.include_router(detection_router, prefix="/api", tags=["Detection"])
+    app.include_router(computer_router, prefix="/api", tags=["Computers"])
 
     # Health check endpoint
     @app.get("/health")
