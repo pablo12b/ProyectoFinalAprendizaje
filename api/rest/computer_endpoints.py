@@ -13,6 +13,7 @@ router = APIRouter()
 
 class ComputerCreate(BaseModel):
     brand: str
+    code: str
     price: float
     description: str | None = None
 
@@ -20,6 +21,7 @@ class ComputerCreate(BaseModel):
 class ComputerResponse(BaseModel):
     id: str  # Simplify UUID to str for JSON response
     brand: str
+    code: str
     price: float
     description: str | None
 
@@ -34,6 +36,7 @@ async def get_computers(
         ComputerResponse(
             id=str(c.id),
             brand=c.brand,
+            code=c.code,
             price=float(c.price),
             description=c.description,
         )
@@ -49,12 +52,14 @@ async def create_computer(
 ) -> ComputerResponse:
     computer = await service.create_computer(
         brand=request.brand,
+        code=request.code,
         price=request.price,
         description=request.description,
     )
     return ComputerResponse(
         id=str(computer.id),
         brand=computer.brand,
+        code=computer.code,
         price=float(computer.price),
         description=computer.description,
     )
@@ -82,6 +87,7 @@ async def get_computer_details(
     return ComputerResponse(
         id=str(computer.id),
         brand=computer.brand,
+        code=computer.code,
         price=float(computer.price),
         description=computer.description,
     )

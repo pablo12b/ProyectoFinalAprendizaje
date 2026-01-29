@@ -27,12 +27,14 @@ class ComputerService:
     async def create_computer(
         self,
         brand: str,
+        code: str,
         price: float,
         description: str | None = None,
     ) -> Computer:
         async with self._session_factory() as session:
             computer = Computer(
                 brand=brand,
+                code=code,
                 price=price,
                 description=description,
             )

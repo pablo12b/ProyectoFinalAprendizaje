@@ -74,9 +74,9 @@ To test the recent changes (Computer Endpoint), including the flow of fetching d
     
    **Step A: Create 3 Computers**
    ```bash
-   curl -X POST -H "Content-Type: application/json" -d '{"brand": "Dell", "price": 1200.00, "description": "Laptop 1"}' http://localhost:9000/api/computers
-   curl -X POST -H "Content-Type: application/json" -d '{"brand": "HP", "price": 800.00, "description": "Laptop 2"}' http://localhost:9000/api/computers
-   curl -X POST -H "Content-Type: application/json" -d '{"brand": "Apple", "price": 2000.00, "description": "Laptop 3"}' http://localhost:9000/api/computers
+   curl -X POST -H "Content-Type: application/json" -d '{"brand": "Dell", "code": "SKU-LAPTOP-let01", "price": 1200.00, "description": "Laptop 1"}' http://localhost:9000/api/computers
+   curl -X POST -H "Content-Type: application/json" -d '{"brand": "HP", "code": "SKU-LAPTOP-al01", "price": 800.00, "description": "Laptop 2"}' http://localhost:9000/api/computers
+   curl -X POST -H "Content-Type: application/json" -d '{"brand": "Apple", "code": "SKU-LAPTOP-asu01", "price": 2000.00, "description": "Laptop 3"}' http://localhost:9000/api/computers
    ```
     
    **Step B: Get All IDs**

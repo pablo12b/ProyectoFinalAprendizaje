@@ -34,6 +34,7 @@ class Computer(Base):
 
     # Basic Info
     brand: Mapped[str] = mapped_column(String(255), nullable=False)
+    code: Mapped[str] = mapped_column(String(255), nullable=False, unique=True)
     price: Mapped[Decimal] = mapped_column(
         Numeric(12, 2),
         nullable=False,
